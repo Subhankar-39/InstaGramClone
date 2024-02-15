@@ -32,6 +32,9 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
+import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -43,6 +46,7 @@ import com.example.instagramclone.ui.theme.mylogoFont
 
 
 class MainActivity : ComponentActivity() {
+    @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -53,10 +57,56 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.onBackground
                 ) {
                     //need nevigation
-                    navModelController().myNavController()
+                    val windowSize = calculateWindowSizeClass(this)
+                    navModelController().myNavController(windowSize = windowSize.widthSizeClass,)
                 }
             }
         }
     }
 }
+
+@OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
+@Composable
+fun comatPreview() {
+    InstaGramCloneTheme {
+        // A surface container using the 'background' color from the theme
+        Surface(
+            modifier = Modifier.fillMaxSize(),
+            color = MaterialTheme.colorScheme.onBackground
+        ) {
+            //need nevigation
+            navModelController().myNavController(windowSize = WindowWidthSizeClass.Compact,)
+        }
+    }
+}
+
+@Composable
+fun comatMediumPreview() {
+    InstaGramCloneTheme {
+        // A surface container using the 'background' color from the theme
+        Surface(
+            modifier = Modifier.fillMaxSize(),
+            color = MaterialTheme.colorScheme.onBackground
+        ) {
+            //need nevigation
+            navModelController().myNavController(windowSize = WindowWidthSizeClass.Medium,)
+        }
+    }
+}
+
+@Composable
+fun comatExpandPreview() {
+    InstaGramCloneTheme {
+        // A surface container using the 'background' color from the theme
+        Surface(
+            modifier = Modifier.fillMaxSize(),
+            color = MaterialTheme.colorScheme.onBackground
+        ) {
+            //need nevigation
+            navModelController().myNavController(windowSize = WindowWidthSizeClass.Expanded,)
+        }
+    }
+}
+
+
 
